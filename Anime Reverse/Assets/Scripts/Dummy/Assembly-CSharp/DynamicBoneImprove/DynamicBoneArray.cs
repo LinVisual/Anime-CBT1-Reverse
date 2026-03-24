@@ -170,7 +170,11 @@ namespace DynamicBoneImprove
 
 		public static bool bResetBoneInUpdate = true;
 
-		private int _enableFrameCount;
+		#region Multithreading is not supported now
+
+		//private int _enableFrameCount;
+
+		#endregion
 
 		private Transform _rootTransform;
 
@@ -206,13 +210,11 @@ namespace DynamicBoneImprove
 			{
 				bMultiThread = false;
 			}
-
 			#region Multithreading is not supported now
 
 			bMultiThread = false;
 
 			#endregion
-
 			Init(false);
 		}
 
@@ -319,7 +321,11 @@ namespace DynamicBoneImprove
 		//OK
 		private void OnEnable()
 		{
-			_enableFrameCount = 0;
+			#region Multithreading is not supported now
+
+			//_enableFrameCount = 0;
+
+			#endregion
 			ResetParticlesPosition();
 		}
 

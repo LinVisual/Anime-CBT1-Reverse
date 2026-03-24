@@ -4,12 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - unknown_20006
-  - unknown_20005
-  - unknown_20001
-  - unknown_20007
-  - unknown_20004
-  - unknown_20002
+  - Ladder
+  - AirWall
+  - NCGU_Low
+  - NCGU_High
+  - AirWall_PTNS
+  - AirWall_NS
+  - Climbable
+  - Stair
   layers:
   - Default
   - TransparentFX
@@ -19,30 +21,30 @@ TagManager:
   - UI
   - 
   - 
+  - Terrain
+  - Character
+  - Camera
+  - SceneProp
+  - ScenePropTemp
+  - ScenePropTrigger
+  - SceneEnviroment
+  - HitBox
+  - 
+  - BulletTrigger
+  - CharacterCombine
+  - CharacterPushing
+  - GrassPresserDummy
+  - 
+  - 
+  - InterTarget
+  - InteeTrigger
+  - CharacterPushingExtra
+  - CharacterPhysics
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - CharacterSync
+  - CharacterPushingSync
   m_SortingLayers:
   - name: Default
     uniqueID: 0
