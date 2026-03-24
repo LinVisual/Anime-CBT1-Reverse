@@ -27,10 +27,10 @@ The code has been completely reversd.
 ## Contributing
 
 We welcome all forms of contribution!
-Report issues or suggestions
-Submit code improvements
-Add new code examples
-Improve documentation
+
+- Report issues or suggestions
+- Submit code improvements
+- Add new code examples
 
 ## Disclaimer
 
