@@ -1,8 +1,10 @@
 # Anime Game CBT1 Reverse
 
-**Languages**: **English** | [简体中文](./README_zh-CN.md)
+**English** | [简体中文](./README_zh-CN.md)
 
-This repository used to store the Anime Game CBT1 reverse engineering code, focusing on reverse character code now.
+This repository contains reverse-engineered code for the Anime Game CBT1, with a current focus on character-related code
+
+![UnityScreenshot](./ReadMe%20Assets/en/Unity%20Screenshot%201.png)
 
 ## Project Structure
 
@@ -10,26 +12,26 @@ This repository used to store the Anime Game CBT1 reverse engineering code, focu
 
 Decrypted binary files
 
-You can use the unmodified Il2cpp tool to load it (e.g., [Il2cppDumper](https://github.com/Perfare/Il2CppDumper), [Il2CppInspector](https://github.com/djkaty/Il2CppInspector))
+You can load them using standard, unmodified Il2Cpp tools (e.g., [Il2cppDumper](https://github.com/Perfare/Il2CppDumper), [Il2CppInspector](https://github.com/djkaty/Il2CppInspector))
 
 ### /Anime Reverse/Assets/CBT1 Assets
 
-The resources extracted using modified UtinyRipper (Some serialization may not be compatible with normal Unity, maybe causing errors).
+Assets extracted using a modified version of UtinyRipper (Some serialized data may not be fully compatible with standard Unity and could cause errors)
 
 ### /Anime Reverse/Assets/Scripts/Dummy
 
-The code being reversed or code not being reversed
+Code currently being reversed or not yet reversed
 
 ### /Anime Reverse/Assets/Scripts/Restored
 
-The code has been completely reversd.
+Code that has been fully reversed
 
 ## Contributing
 
 We welcome all forms of contribution!
 
 - Report issues or suggestions
-- Submit code improvements
+- Submit improvements to the code
 - Add new code examples
 
 ## Disclaimer

@@ -1,8 +1,10 @@
 # Anime Game CBT1逆向
 
-**Languages**: [English](./README.md) | **简体中文**
+[English](./README.md) | **简体中文**
 
 这是一个用于存放Anime Game CBT1逆向代码的仓库，目前专注于逆向人物代码部分
+
+![UnityScreenshot](./ReadMe%20Assets/zh-CN/Unity%20Screenshot%201.png)
 
 ## 项目结构
 
