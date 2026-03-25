@@ -89,7 +89,7 @@ namespace VerletEngine
 			}
 		}
 
-		//OK 100000%
+		//OK
 		public void CacheDynamicBoneRootListIndex(Transform[] rootList)
 		{
 			rootListIndex = Array.IndexOf(rootList, _boneTransform);
@@ -105,14 +105,22 @@ namespace VerletEngine
 				{
 					if (_boneTransform != null && _boneTransform.IsChildOf(bone))
 					{
-						this.boneLineIndex = i;
+						boneLineIndex = i;
 						return;
 					}
 				}
 			}
 		}
 
-		public void SetParams(float damping, float elasticity, float stiffness, float inert, float radius) {} // 0x000000018217BBB0-0x000000018217BBF0
+		//OK
+		public void SetParams(float damping, float elasticity, float stiffness, float inert, float radius)
+		{
+			m_Damping = damping;
+			m_Radius = radius;
+			m_Elasticity = elasticity;
+			m_Stiffness = stiffness;
+			m_Inert = inert;
+		}
 
 		//OK
 		public bool isRoot()

@@ -68,7 +68,7 @@ namespace miHoYoEmotion
 			} 
 		}
 	
-		//OK+
+		//OK
 		protected override void Start()
 		{
 			UpdateManger();
@@ -168,7 +168,9 @@ namespace miHoYoEmotion
 				ApplyEyeTarget(_leftEyeLookAtBone, _rightEyeLookAtBone, leftEuler, rightEuler, leftDeltaRot, rightDeltaRot);
 			}
 		}
-		private void UpdateEyeTarget(Transform target, Transform eyeBone, Vector3 originEuler, out Vector3 deltaEulerRot) {
+
+		private void UpdateEyeTarget(Transform target, Transform eyeBone, Vector3 originEuler, out Vector3 deltaEulerRot) 
+		{
 			deltaEulerRot = default;
 		} // 0x00000001814EA9D0-0x00000001814EACA0
 

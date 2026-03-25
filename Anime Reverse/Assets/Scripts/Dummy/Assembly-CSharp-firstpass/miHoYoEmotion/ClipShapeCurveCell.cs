@@ -27,8 +27,6 @@ namespace miHoYoEmotion
 		public string path { get => default; set {} } // 0x00000001814E3980-0x00000001814E39A0 0x00000001814E39C0-0x00000001814E3A60
 		public string prop { get => default; set {} } // 0x00000001814E39A0-0x00000001814E39C0 0x00000001814E3A60-0x00000001814E3B00
 	
-		// Constructors
-		public ClipShapeCurveCell() {} // 0x00000001802CB2E0-0x00000001802CB2F0
 	
 		// Methods
 		private void RefreshData() {} // 0x00000001814E35F0-0x00000001814E3980

@@ -532,11 +532,7 @@ namespace DynamicBoneImprove
 				for (int i = 0; i < m_Particles.Count; i++)
 				{
 					VerletParticle verletParticle = m_Particles[i];
-					verletParticle.m_Damping = m_Damping;
-					verletParticle.m_Elasticity = m_Elasticity;
-					verletParticle.m_Stiffness = m_Stiffness;
-					verletParticle.m_Inert = m_Inert;
-					verletParticle.m_Radius = m_Radius;
+					verletParticle.SetParams(m_Damping, m_Elasticity, m_Stiffness, m_Inert, m_Radius);
 					if (m_AdditiveWindForce != null)
 					{
 						verletParticle.m_windForceMultiplier = 1f;

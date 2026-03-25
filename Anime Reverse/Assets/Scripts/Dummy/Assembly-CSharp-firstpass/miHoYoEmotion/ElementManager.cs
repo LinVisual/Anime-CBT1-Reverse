@@ -67,7 +67,21 @@ namespace miHoYoEmotion
 	
 		// Methods
 		public T GetShapeElement<T>(string name) where T : ShapeElement, new() => default;
-		protected void AddShapeRuntime(string name, BaseShapeRuntime shapeRuntime) {} // 0x00000001814E7AC0-0x00000001814E7C00
+
+		//OK
+		protected void AddShapeRuntime(string name, BaseShapeRuntime shapeRuntime)
+		{
+			if (_shapeRuntimeCache.ContainsKey(name))
+			{
+				Debug.LogWarning("Duplicate shape name " + name + " on " + gameObject.name);
+				_shapeRuntimeCache[name] = shapeRuntime;
+			}
+			else
+			{
+				_shapeRuntimeCache.Add(name, shapeRuntime);
+			}
+		}
+
 		public T GetShapeRuntime<T>(string name) where T : BaseShapeRuntime, new() => default;
 
 		//OK
@@ -81,7 +95,14 @@ namespace miHoYoEmotion
 		{
 		}
 
-		public virtual void InitStateMgr() {} // 0x00000001814E7C00-0x00000001814E7CD0
+		//OK
+		public virtual void InitStateMgr()
+		{
+			if (_stateMgr == null)
+			{
+				_stateMgr = new EmoStateManager();
+			}
+		}
 
 		//OK
 		public virtual void UpdateShapeData()

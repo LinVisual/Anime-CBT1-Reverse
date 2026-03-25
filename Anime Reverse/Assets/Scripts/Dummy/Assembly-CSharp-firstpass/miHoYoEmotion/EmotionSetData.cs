@@ -9,12 +9,12 @@ namespace miHoYoEmotion
 	{
 		[Space]
 		public string[] phonemeSet;
+
 		[Space]
 		public string[] emotionSet;
+
 		[Space]
 		public string[] gestureSet;
-	
-		public EmotionSetData() {} // 0x00000001804C45E0-0x00000001804C45F0
 	
 		// Methods
 		public string PhonemeName(int index) => default; // 0x00000001813A8900-0x00000001813A8940
