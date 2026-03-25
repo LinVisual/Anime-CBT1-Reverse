@@ -12,7 +12,7 @@ This repository contains reverse-engineered code for the Anime Game CBT1, with a
 
 Decrypted binary files
 
-You can load them using standard, unmodified Il2Cpp tools (e.g., [Il2cppDumper](https://github.com/Perfare/Il2CppDumper), [Il2CppInspector](https://github.com/djkaty/Il2CppInspector))
+You can load them using standard, unmodified Il2Cpp tools
 
 ### /Anime Reverse/Assets/CBT1 Assets
 
@@ -33,6 +33,7 @@ We welcome all forms of contribution!
 - Report issues or suggestions
 - Submit improvements to the code
 - Add new code examples
+- Obtaining Files: The decrypted binary files are now available on the project's [Release](https://github.com/LinVisual/AnimeReverse/releases/)page. You can download them directly from there and load them using standard, unmodified Il2Cpp tools (e.g., [Il2cppDumper](https://github.com/Perfare/Il2CppDumper), [Il2CppInspector](https://github.com/djkaty/Il2CppInspector))
 
 ## Disclaimer
 
