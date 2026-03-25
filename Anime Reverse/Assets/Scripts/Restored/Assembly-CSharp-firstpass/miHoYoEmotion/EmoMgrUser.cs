@@ -11,7 +11,6 @@ namespace miHoYoEmotion
 
 		protected EmoStateManager _emoState;
 
-		//OK
 		public ElementManager.Type type
 		{
 			get
@@ -20,7 +19,6 @@ namespace miHoYoEmotion
 			}
 		}
 
-		//OK
 		public BaseEmoAnimation emoAnim
 		{
 			get
@@ -29,7 +27,6 @@ namespace miHoYoEmotion
 			}
 		}
 
-		//OK
 		public ElementManager manager
 		{
 			get
@@ -38,7 +35,6 @@ namespace miHoYoEmotion
 			}
 		}
 
-		//OK
 		public EmoStateManager emoState
 		{
 			get
@@ -46,14 +42,12 @@ namespace miHoYoEmotion
 				return _emoState;
 			}
 		}
-	
-		//OK
+
 		protected virtual void Start()
 		{
 			UpdateManger();
 		}
 
-		//OK
 		public void UpdateManger()
 		{
 			ElementManager elementManager;
@@ -88,16 +82,27 @@ namespace miHoYoEmotion
 			_emoState = elementManager.stateMgr;
 		}
 
-		//OK
 		protected virtual void OnEnable()
 		{
 			UpdateManger();
 		}
 
-		public void SetState(EmoStateManager.EmoState state) {} // 0x00000001814E7F10-0x00000001814E7FB0
-		public void ClearState(EmoStateManager.EmoState state) {} // 0x00000001814E7DE0-0x00000001814E7EE0
+		public void SetState(EmoStateManager.EmoState state)
+		{
+			if (_emoState != null)
+			{
+				_emoState.SetState(state);
+			}
+		}
 
-		//OK
+		public void ClearState(EmoStateManager.EmoState state)
+		{
+			if (_emoState != null)
+			{
+				_emoState.ClearState(state);
+			}
+		}
+
 		public bool IsState(EmoStateManager.EmoState state)
 		{
 			return (_emoState != null) && _emoState.InState(state);

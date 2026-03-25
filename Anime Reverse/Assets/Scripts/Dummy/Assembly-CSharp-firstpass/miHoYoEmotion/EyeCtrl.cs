@@ -68,27 +68,47 @@ namespace miHoYoEmotion
 			} 
 		}
 	
-		// Methods
-		protected override void Start() {} // 0x00000001814EA710-0x00000001814EA8B0
-		protected override void OnEnable() {} // 0x00000001814E7F00-0x00000001814E7F10
+		//OK+
+		protected override void Start()
+		{
+			UpdateManger();
+			if (_leftEyeLookAtBone != null && _rightEyeLookAtBone != null)
+			{
+				leftEuler = _leftEyeLookAtBone.localEulerAngles;
+				rightEuler = _rightEyeLookAtBone.localEulerAngles;
+			}
+			_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), 1);
+			_emoAnim.RegisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), 1);
+		}
+
+		//OK
+		protected override void OnEnable()
+		{
+			UpdateManger();
+		}
 
 		//OK
 		private void OnDestroy()
 		{
 			if (_emoAnim != null)
 			{
-				_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish));
+				_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), 1);
 			}
 		}
 
-		private void LateUpdate() {} // 0x00000001814EA590-0x00000001814EA690
+		//OK
+		private void LateUpdate()
+		{
+			UpdateBlink();
+			UpdateLookTarget();
+		}
 
 		//OK
 		private void UpdateBlink()
 		{
 			if (autoBlinkingEnabled && !blinking)
 			{
-				if (blinkTimer <= 0.0)
+				if (blinkTimer <= 0f)
 				{
 					Blink();
 				}
@@ -137,11 +157,56 @@ namespace miHoYoEmotion
 			ClearState(EmoStateManager.EmoState.BLINKING);
 		}
 
-		private void UpdateLookTarget() {} // 0x00000001814EACA0-0x00000001814EAF40
+		//OK
+		private void UpdateLookTarget()
+		{
+			target = viewTarget;
+			if (targetEnabled && viewTarget != null && _leftEyeLookAtBone != null && _rightEyeLookAtBone != null)
+			{
+				UpdateEyeTarget(target, _leftEyeLookAtBone, leftEuler, out Vector3 leftDeltaRot);
+				UpdateEyeTarget(target, _rightEyeLookAtBone, rightEuler, out Vector3 rightDeltaRot);
+				ApplyEyeTarget(_leftEyeLookAtBone, _rightEyeLookAtBone, leftEuler, rightEuler, leftDeltaRot, rightDeltaRot);
+			}
+		}
 		private void UpdateEyeTarget(Transform target, Transform eyeBone, Vector3 originEuler, out Vector3 deltaEulerRot) {
 			deltaEulerRot = default;
 		} // 0x00000001814EA9D0-0x00000001814EACA0
-		private void ApplyEyeTarget(Transform leftEyeBone, Transform rightEyeBone, Vector3 leftOriginEuler, Vector3 rightOriginEuler, Vector3 leftDeltaRot, Vector3 rightDeltaRot) {} // 0x00000001814EA2F0-0x00000001814EA410
-		private void CheckMinAngle(ref Vector3 euler) {} // 0x00000001814EA4F0-0x00000001814EA590
+
+		//OK
+		private void ApplyEyeTarget(Transform leftEyeBone, Transform rightEyeBone, Vector3 leftOriginEuler, Vector3 rightOriginEuler, Vector3 leftDeltaRot, Vector3 rightDeltaRot)
+		{
+			if (rightDeltaRot.y * leftDeltaRot.y < 0f)
+			{
+				leftDeltaRot.y = 0f;
+				rightDeltaRot.y = 0f;
+			}
+			leftEyeBone.localEulerAngles = new Vector3(leftDeltaRot.y + leftOriginEuler.x, leftOriginEuler.y, leftOriginEuler.z + leftDeltaRot.x);
+			rightEyeBone.localEulerAngles = new Vector3(rightDeltaRot.y + rightOriginEuler.x, rightOriginEuler.y, rightOriginEuler.z + rightDeltaRot.x);
+		}
+
+		//OK
+		private void CheckMinAngle(ref Vector3 euler)
+		{
+			float y = euler.y % 360f;
+			float x = euler.x % 360f;
+			if (y > 180f)
+			{
+				y -= 360f;
+			}
+			else if (y < -180f)
+			{
+				y += 360f;
+			}
+			if (x > 180f)
+			{
+				x -= 360f;
+			}
+			else if (x < -180f)
+			{
+				x += 360f;
+			}
+			euler.y = y;
+			euler.x = x;
+		}
 	}
 }
