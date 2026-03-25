@@ -47,7 +47,7 @@ namespace MoleMole
 		{
 			get
 			{
-				if (mainCamera == null)
+				if (_mainCamera == null)
 				{
 					return Camera.main;
 				}

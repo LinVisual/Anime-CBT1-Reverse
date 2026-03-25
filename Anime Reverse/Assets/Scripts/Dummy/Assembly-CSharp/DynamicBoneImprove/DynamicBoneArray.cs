@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using VerletEngine;
 
@@ -645,7 +646,28 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		private void ResetParticlesPosition() {} // 0x0000000181D0B040-0x0000000181D0B380
+		//OK
+		private void ResetParticlesPosition()
+		{
+			for (int i = 0; i < m_Particles.Count; i++)
+			{
+				Vector3 position;
+				VerletParticle verletParticle = m_Particles[i];
+				if (verletParticle.m_BoneTransform != null)
+				{
+					position = verletParticle.m_BoneTransform.position;
+				}
+				else
+				{
+					position = m_Particles[verletParticle.m_ParentIndex].m_BoneTransform.TransformPoint(m_EndOffset);
+				}
+				Vector3 offset = position - m_posOffset;
+				verletParticle.m_PrevPosition = offset;
+				verletParticle.m_Position = offset;
+				verletParticle.m_posOffset = m_posOffset;
+			}
+			m_ObjectPrevPosition = transform.position;
+		}
 
 		//OK
 		private int CalDbUpdateCount(float dbTimeStep, float frameDeltaTime)
@@ -782,9 +804,8 @@ namespace DynamicBoneImprove
 					Vector3 restPosition = Vector3.zero;
 					if (keepShape)
 					{
-						Vector3 RestPos = verletParticle.GetRestPos(parentVerletParticle);
-						restPosition = RestPos;
-						verletParticle.UpdateKeepShapeToParent(ref parentVerletParticle, m_Weight, boneLenToParent, RestPos);
+						restPosition = verletParticle.GetRestPos(parentVerletParticle);
+						verletParticle.UpdateKeepShapeToParent(ref parentVerletParticle, m_Weight, boneLenToParent, restPosition);
 					}
 					if (m_FreezeAxis != FreezeAxis.None)
 					{

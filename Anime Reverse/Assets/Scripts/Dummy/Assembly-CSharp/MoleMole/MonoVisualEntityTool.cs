@@ -1,4 +1,5 @@
 ﻿using miHoYoEmotion;
+using Proto;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,12 +64,12 @@ namespace MoleMole
 		private Transform GIEOJNGEOHG(string CHAOIOGLKCP) => default; // 0x000000018219C630-0x000000018219C740
 		public Transform GetHitObjectListByName(uint NLNDLEALHLG) => default; // 0x000000018219D1A0-0x000000018219D200
 		public Renderer GetRendereByName(string CHAOIOGLKCP) => default; // 0x000000018219D2F0-0x000000018219D400
-		//public Collider[] GetPushColliderByName(string CHAOIOGLKCP) => default; // 0x000000018219D200-0x000000018219D2F0
-		//public NamedCollider GetHitBoxByName(string CHAOIOGLKCP) => default; // 0x000000018219CD00-0x000000018219CDE0
-		//public NamedCollider GetHitBoxByIndex(uint NLNDLEALHLG) => default; // 0x000000018219CC90-0x000000018219CD00
-		//public NamedCollider GetHitBoxByCollder(Collider OPKJKBKAFMH) => default; // 0x000000018219CB60-0x000000018219CC90
-		//public HitColliderType GetHitColliderType(Collider OPKJKBKAFMH, ref int GCNIMHDPCOL) => default; // 0x000000018219CF50-0x000000018219D1A0
-		//public Collider GetHitColliderByTypeAndIndex(HitColliderType PHDJOJFOAJF, int GCNIMHDPCOL) => default; // 0x000000018219CDE0-0x000000018219CF50
+		public Collider[] GetPushColliderByName(string CHAOIOGLKCP) => default; // 0x000000018219D200-0x000000018219D2F0
+		public NamedCollider GetHitBoxByName(string CHAOIOGLKCP) => default; // 0x000000018219CD00-0x000000018219CDE0
+		public NamedCollider GetHitBoxByIndex(uint NLNDLEALHLG) => default; // 0x000000018219CC90-0x000000018219CD00
+		public NamedCollider GetHitBoxByCollder(Collider OPKJKBKAFMH) => default; // 0x000000018219CB60-0x000000018219CC90
+		public HitColliderType GetHitColliderType(Collider OPKJKBKAFMH, ref int GCNIMHDPCOL) => default; // 0x000000018219CF50-0x000000018219D1A0
+		public Collider GetHitColliderByTypeAndIndex(HitColliderType PHDJOJFOAJF, int GCNIMHDPCOL) => default; // 0x000000018219CDE0-0x000000018219CF50
 		public bool IsAnyRenderersVisible() => default; // 0x000000018219D6B0-0x000000018219D7C0
 		public bool IsAllRenderersVisible() => default; // 0x000000018219D610-0x000000018219D6B0
 		public void SetRenderersVisible(bool LEPKGLPHHKF) {} // 0x000000018219DCA0-0x000000018219DD40
