@@ -8,12 +8,6 @@ This repository contains reverse-engineered code for the Anime Game CBT1, with a
 
 ## Project Structure
 
-### /Binaries
-
-Decrypted binary files
-
-You can load them using standard, unmodified Il2Cpp tools
-
 ### /Anime Reverse/Assets/CBT1 Assets
 
 Assets extracted using a modified version of UtinyRipper (Some serialized data may not be fully compatible with standard Unity and could cause errors)
