@@ -401,6 +401,7 @@ namespace VerletEngine
 		}
 
 		public void UpdateCollision(List<DynamicBoneColliderBaseMMD> colliders, float objectScale, ref VerletParticle parent) {} // 0x000000018217BE90-0x000000018217BFC0
+
 		public void UpdateCollisionRayCast(LayerMask colliderMask, float objectScale) {} // 0x000000018217BBF0-0x000000018217BE90
 
 		#region Multithreading is not supported now

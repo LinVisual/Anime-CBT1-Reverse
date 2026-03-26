@@ -148,7 +148,17 @@ namespace miHoYoEmotion
 		public void ResetBlendShape() {} // 0x00000001814E4040-0x00000001814E4130
 		protected override void Start() {} // 0x000000018110CB20-0x000000018110CB40
 		protected override void OnEnable() {} // 0x000000018110CB20-0x000000018110CB40
-		public override void InitEmoAnim() {} // 0x00000001814E3FC0-0x00000001814E4040
+
+		//OK
+		public override void InitEmoAnim()
+		{
+			if (_emoAnim == null)
+			{
+				_emoAnim = new ClipEmoAnimation();
+				_emoAnim.Init(this);
+			}
+		}
+
 		public override void UpdateShapeData() {} // 0x00000001814E4560-0x00000001814E4730
 		protected override void UpdateShapeRuntime() {} // 0x00000001814E4730-0x00000001814E4880
 		private void UpdateRuntimeIndex() {} // 0x00000001814E4130-0x00000001814E4560

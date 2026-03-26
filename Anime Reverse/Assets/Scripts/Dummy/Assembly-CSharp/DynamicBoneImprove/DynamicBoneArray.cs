@@ -1,8 +1,8 @@
-﻿using MoleMole;
+﻿using Cinemachine.Utility;
+using MoleMole;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using VerletEngine;
 
@@ -416,8 +416,61 @@ namespace DynamicBoneImprove
 			}
 		}
 
+		//2026.3.26 AM 9:07 Fin.
 		[ContextMenu("InitWindforce")]
-		private void InitWindforceBones() { } // 181D09AB0
+		private void InitWindforceBones()
+		{
+			if (m_AdditiveWindForce.m_endBoneIndex != null)
+			{
+				m_AdditiveWindForce.m_endBoneIndex.Clear();
+			}
+			else
+			{
+				m_AdditiveWindForce.m_endBoneIndex = new List<int>();
+			}
+			if (m_AdditiveWindForce.m_anchorToBoneDir != null)
+			{
+				m_AdditiveWindForce.m_anchorToBoneDir.Clear();
+			}
+			else
+			{
+				m_AdditiveWindForce.m_anchorToBoneDir = new List<Vector3>();
+			}
+			for (int i = 0; i < m_RootList.Length; i++)
+			{
+				m_AdditiveWindForce.m_endBoneIndex.Add(-1);
+				m_AdditiveWindForce.m_anchorToBoneDir.Add(Vector3.zero);
+			}
+			for (int i = 0; i < m_Particles.Count; i++)
+			{
+				Transform bone = m_Particles[i].m_BoneTransform;
+				if (bone != null)
+				{
+					for (int j = 0; j < m_RootList.Length; j++)
+					{
+						if (m_RootList[j] != null && bone.IsChildOf(m_RootList[j]))
+						{
+							if (m_AdditiveWindForce.m_endBoneIndex[j] < 0 || m_Particles[i].m_BoneLength > m_Particles[m_AdditiveWindForce.m_endBoneIndex[j]].m_BoneLength)
+							{
+								m_AdditiveWindForce.m_endBoneIndex[j] = i;
+							}
+							break;
+						}
+					}
+				}
+			}
+			Transform anchor = m_AdditiveWindForce.m_anchor;
+			if (anchor != null)
+			{
+				for (int i = 0;  i < m_RootList.Length; i++)
+				{
+					if (m_AdditiveWindForce.m_endBoneIndex[i] >= 0 && m_RootList[i] != null)
+					{
+						m_AdditiveWindForce.m_anchorToBoneDir[i] = anchor.InverseTransformDirection(anchor.position.ProjectPointOnLineSegment(m_RootList[i].position, m_Particles[m_AdditiveWindForce.m_endBoneIndex[i]].m_BoneTransform.position) - anchor.position);
+					}
+				}
+			}
+		}
 
 		//OK
 		private float AddNewParticle(int parentIndex, float parentBoneLength, int rootIndex, Transform boneTransform)
@@ -470,7 +523,7 @@ namespace DynamicBoneImprove
 			return UpdateBoneLength(ref verletParticle, parentBoneLength, rootIndex);
 		}
 
-		//OK
+		//2026.3.26 AM 9:31 Fin.
 		private void AppendAdditionalEndParticle(int parentIndex, float parentBoneLength, int rootIndex)
 		{
 			AddNewParticle(parentIndex, parentBoneLength, rootIndex, null);
@@ -489,35 +542,41 @@ namespace DynamicBoneImprove
 			return boneLength;
 		}
 
-		#warning There are toooooo many labels for me. I'm not sure if this is correct. Address: 181D0AB90
-
+		//2026.3.26 AM 9:29 Fin.
 		private void RecursivelyAppendParticles(Transform b, int parentIndex, float parentBoneLength, int rootIndex)
 		{
-			if (b == null)
+			if (b  == null)
 			{
-				AddNewParticle(parentIndex, parentBoneLength, rootIndex, b);
+				AddNewParticle(parentIndex, parentBoneLength, rootIndex, null);
 				return;
 			}
 			parentBoneLength = AddNewParticle(parentIndex, parentBoneLength, rootIndex, b);
 			parentIndex = m_Particles.Count - 1;
 			for (int i = 0; i < b.childCount; i++)
 			{
-				Transform child = b.GetChild(i);
+				bool isExcluded = false;
 				if (m_Exclusions != null)
 				{
 					for (int j = 0; j < m_Exclusions.Count ; ++j)
 					{
-						if (m_Exclusions[j] == child)
+						if (m_Exclusions[j] == b.GetChild(i))
 						{
-							if (m_EndLength > 0f || m_EndOffset != Vector3.zero)
-							{
-								child = null;
-							}
+							isExcluded = true;
 							break;
 						}
 					}
 				}
-				RecursivelyAppendParticles(child, parentIndex, parentBoneLength, rootIndex);
+				if (isExcluded)
+				{
+					if (m_EndLength > 0f || m_EndOffset != Vector3.zero)
+					{
+						RecursivelyAppendParticles(null, parentIndex, parentBoneLength, rootIndex);
+					}
+				}
+				else
+				{
+					RecursivelyAppendParticles(b.GetChild(i), parentIndex, parentBoneLength, rootIndex);
+				}
 			}
 			if (b.childCount == 0 && (m_EndLength > 0f || m_EndOffset != Vector3.zero))
 			{

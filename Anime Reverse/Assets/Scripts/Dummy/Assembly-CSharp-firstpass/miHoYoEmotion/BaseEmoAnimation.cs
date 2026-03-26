@@ -1,33 +1,32 @@
-﻿/*
- * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
- */
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Security;
-
-// Image 19: Assembly-CSharp-firstpass.dll - Assembly: Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 5219-7968
+﻿using System.Collections.Generic;
 
 namespace miHoYoEmotion
 {
-	public abstract class BaseEmoAnimation // TypeDefIndex: 6575
+	public abstract class BaseEmoAnimation
 	{
-		// Fields
-		protected ElementManager _manager; // 0x10
-		protected List<EmoTrack> _trackList; // 0x18
+		protected ElementManager _manager;
+
+		protected List<EmoTrack> _trackList =  new List<EmoTrack>();
 	
-		// Properties
-		public ElementManager manager { get; } // 0x0000000180293970-0x0000000180293980 
-	
-		// Constructors
-		protected BaseEmoAnimation() {} // 0x00000001812BDD80-0x00000001812BDDE0
+		//OK
+		public ElementManager manager
+		{
+			get
+			{
+				return _manager;
+			}
+		}
 	
 		// Methods
 		protected void AddTrack(int trackIndex, EmoTrack track) {} // 0x00000001812BD3A0-0x00000001812BD460
 		protected EmoTrack GetTrack(int trackIndex) => default; // 0x00000001812BD670-0x00000001812BD6F0
-		public virtual void Init(ElementManager manager) {} // 0x0000000180723BD0-0x0000000180723BE0
+
+		//OK
+		public virtual void Init(ElementManager manager)
+		{
+			_manager = manager;
+		}
+
 		public void Update(float deltaTime) {} // 0x00000001812BDCC0-0x00000001812BDD80
 		public void Apply() {} // 0x00000001812BD4B0-0x00000001812BD560
 		public void RegisterFinishHandler(EmoTrack.EmoVoidHandler handler, int trackIndex = 0 /* Metadata: 0x00920C99 */) {} // 0x00000001812BD890-0x00000001812BD8D0

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace miHoYoEmotion
 {
 	[ExecuteInEditMode]
-	public class ElementManager : MonoBehaviour // TypeDefIndex: 6591
+	public class ElementManager : MonoBehaviour
 	{
 		public enum Type
 		{
