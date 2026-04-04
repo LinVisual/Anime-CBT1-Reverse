@@ -634,21 +634,14 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//OK
+		//2026.4.04 PM 9.03 Fin.
 		private void UpdateWindForce()
 		{
 			if (m_AdditiveWindForce != null && m_AdditiveWindForce.OnUpdate())
 			{
-				if (m_AdditiveWindForce.m_isStationary)
+				if (m_AdditiveWindForce.m_isStationary && GetWindForceSource() != Vector3.zero)
 				{
-					if (GetWindForceSource() == Vector3.zero)
-					{
-						UpdateParticleParameters(m_Damping, m_Elasticity, m_Stiffness);
-					}
-					else
-					{
-						UpdateParticleParameters(m_AdditiveWindForce.m_overrideDamping, m_AdditiveWindForce.m_overrideElasticity, m_AdditiveWindForce.m_overrideStiffness);
-					}
+					UpdateParticleParameters(m_AdditiveWindForce.m_overrideDamping, m_AdditiveWindForce.m_overrideElasticity, m_AdditiveWindForce.m_overrideStiffness);
 				}
 				else
 				{
@@ -728,12 +721,12 @@ namespace DynamicBoneImprove
 			m_ObjectPrevPosition = transform.position;
 		}
 
-		//OK
+		//2026.4.04 PM 8:26 Fin.
 		private int CalDbUpdateCount(float dbTimeStep, float frameDeltaTime)
 		{
 			float delta = frameDeltaTime + m_lastFrameRemainTime;
 			int updateCount = Mathf.FloorToInt(delta / dbTimeStep);
-			m_lastFrameRemainTime = delta - (float)(updateCount * dbTimeStep);
+			m_lastFrameRemainTime = delta - (updateCount * dbTimeStep);
 			if (updateCount >= MaxDbUpdateCountOneFrame)
 			{
 				m_lastFrameRemainTime = 0f;
@@ -788,47 +781,264 @@ namespace DynamicBoneImprove
 			return new Vector3(windForce.x, 0f, windForce.z) * windForce.w;
 		}
 
-		//OK
+		#warning Incomplete... Address: 181D0E990
 		private void UpdateParticlesVerlet(float timeStep, float lastTimeStep = -1f)
 		{
-			if (m_RootList[0] == null)
+			//if (m_RootList[0] == null)
+			//{
+			//	Debug.LogWarning("m_RootList[0] is NULL!");
+			//	return;
+			//}
+			//Vector3 normalized = m_Gravity.normalized;
+			//Vector3 force = (m_Gravity - (normalized * Mathf.Max(Vector3.Dot(m_RootList[0].TransformDirection(m_LocalGravity), normalized), 0f)) + m_Force) * m_ObjectScale;
+			//float dbtimeStep = timeStep;
+			//if (m_UpdateRate > 0f)
+			//{
+			//	dbtimeStep = Time.timeScale / m_UpdateRate;
+			//}
+			//Vector3 windForceSource = GetWindForceSource();
+			//for (int i = 0; i < m_Particles.Count; i++)
+			//{
+			//	Vector3 particleForce = force;
+			//	VerletParticle verletParticle = m_Particles[i];
+			//	if (m_AdditiveWindForce != null && m_AdditiveWindForce.m_windForceMultiplier > 0f)
+			//	{
+			//		float windAngleDiff = -1;
+			//		float windCurveValue = -1;
+			//		Vector3 windForce = m_AdditiveWindForce.GetWindForceForParticle(windForceSource, verletParticle, ref windAngleDiff, ref windCurveValue);
+			//		if (windForce.magnitude > Mathf.Epsilon)
+			//		{
+			//			particleForce += windForce * m_ObjectScale;
+			//		}
+			//		if (verletParticle.m_BoneTransform != null && !string.IsNullOrEmpty(m_watchParticleName) && !string.IsNullOrEmpty(verletParticle.m_BoneName) && verletParticle.m_BoneName.Contains(m_watchParticleName))
+			//		{
+			//			verletParticle.m_angleDiff = windAngleDiff;
+			//			verletParticle.m_appliedWindforce = particleForce;
+			//			verletParticle.m_curveValue = windCurveValue;
+			//		}
+			//	}
+			//	verletParticle.UpdateVerlet(m_ObjectMove, particleForce, timeStep, lastTimeStep, dbtimeStep);
+			//}
+
+			Transform[] m_RootList; // rax
+			UnityEngine.Object v6; // rdi
+			__int64 v7; // xmm8_8
+			float z; // r14d
+			Vector3 v9; // rax
+			__int64 v10; // xmm6_8
+			float v11; // edi
+			Transform[] v12; // rax
+			Transform v13; // rdx
+			float v14; // eax
+			Vector3 v15; // rax
+			__int64 v16; // xmm7_8
+			float v17; // esi
+			float v18; // xmm0_4
+			float v19; // xmm0_4
+			Vector3 v20; // rax
+			__int64 v21; // xmm0_8
+			Vector3 v22; // rax
+			float v23; // ecx
+			__int64 v24; // xmm0_8
+			Vector3 v25; // rax
+			float m_ObjectScale; // xmm3_4
+			__int64 v27; // xmm0_8
+			Vector3 v28; // rax
+			float v29; // xmm9_4
+			float v30; // r15d
+			__int64 v31; // xmm8_8
+			Vector3 WindForceSource; // rax
+			int v33; // edi
+			int v34; // esi
+			__int64 v35; // xmm13_8
+			float v36; // r12d
+			List<VerletParticle> m_Particles; // rax
+			DynamicBoneWindForce m_AdditiveWindForce; // rsi
+			__int64 v39; // xmm6_8
+			float v40; // r14d
+			List<VerletParticle> v41; // rcx
+			VerletParticle Item; // rax
+			float magnitude_1; // xmm0_4
+			__int64 v45; // xmm6_8
+			float v46; // esi
+			float v47; // xmm7_4
+			Vector3 v48; // rax
+			__int64 v49; // xmm0_8
+			Vector3 v50; // rax
+			List<VerletParticle> v51; // rcx
+			VerletParticle v52; // rax
+			string v53; // rsi
+			String m_watchParticleName; // rsi
+			List<VerletParticle> v55; // rcx
+			VerletParticle v56; // rax
+			String v57; // rsi
+			List<VerletParticle> v58; // rcx
+			VerletParticle v59; // rax
+			String v60; // rax
+			List<VerletParticle> v61; // rcx
+			VerletParticle v62; // rax
+			List<VerletParticle> v63; // rcx
+			VerletParticle v64; // rax
+			List<VerletParticle> v65; // rcx
+			VerletParticle v66; // rax
+			List<VerletParticle> v67; // rcx
+			VerletParticle v68; // rax
+			__int64 v69; // xmm0_8
+			Vector3 v72; // [rsp+40h] [rbp-C0h] BYREF
+			Vector3 v73; // [rsp+50h] [rbp-B0h] BYREF
+			Vector3 v74; // [rsp+60h] [rbp-A0h] BYREF
+			float v75; // [rsp+70h] [rbp-90h] BYREF
+			Vector3 v76; // [rsp+78h] [rbp-88h] BYREF
+			Vector3 v77; // [rsp+90h] [rbp-70h] BYREF
+			Vector3 v78; // [rsp+A0h] [rbp-60h] BYREF
+			Vector3 v79; // [rsp+B0h] [rbp-50h] BYREF
+			float v83; // [rsp+1A0h] [rbp+A0h] BYREF
+
+			v76.x = 0; v76.y = 0;
+			v76.z = 0;
+			m_RootList = this.m_RootList;
+			v6 = m_RootList[0];
+			if (v6 == null)
 			{
 				Debug.LogWarning("m_RootList[0] is NULL!");
 				return;
 			}
-			Vector3 normalized = m_Gravity.normalized;
-			Vector3 force = (m_Gravity - (normalized * Mathf.Max(Vector3.Dot(m_RootList[0].TransformDirection(m_LocalGravity), normalized), 0f)) + m_Force) * m_ObjectScale;
-			float dbtimeStep = timeStep;
-			if (m_UpdateRate > 0f)
+			v7.x = this.m_Gravity.x; v7.y = this.m_Gravity.y;
+			z = this.m_Gravity.z;
+			v9 = this.m_Gravity.normalized;
+			v10.x = v9.x; v10.y = v9.y;
+			v11 = v9.z;
+			v12 = this.m_RootList;
+			v13 = v12[0];
+			v14 = this.m_LocalGravity.z;
+			v73.x = this.m_LocalGravity.x; v73.y = this.m_LocalGravity.y;
+			v73.z = v14;
+			v15 = v13.TransformDirection(v73);
+			v16.x = v15.x; v16.y = v15.y;
+			v17 = v15.z;
+			v73.x = v10.x; v73.y = v10.y;
+			v73.z = v11;
+			v72.x = v16.x; v72.y = v16.y;
+			v72.z = v17;
+			v18 = Vector3.Dot(v72, v73);
+			v19 = Mathf.Max(v18, 0f);
+			v72.x = v10.x; v72.y = v10.y;
+			v72.z = v11;
+			v20 = v72 * v19;
+			v73.x = v7.x; v73.y = v7.y;
+			v73.z = z;
+			v21.x = v20.x; v21.y = v20.y;
+			v20.x = v20.z;
+			v72.x = v21.x; v72.y = v21.y;
+			v72.z = v20.x;
+			v22 = v73 - v72;
+			v23 = this.m_Force.z;
+			v72.x = this.m_Force.x; v72.y = this.m_Force.y;
+			v24.x = v22.x; v24.y = v22.y;
+			v22.x = v22.z;
+			v72.z = v23;
+			v73.x = v24.x; v73.y = v24.y;
+			v73.z = v22.x;
+			v25 = v73 + v72;
+			m_ObjectScale = this.m_ObjectScale;
+			v27.x = v25.x; v27.y = v25.y;
+			v25.x = v25.z;
+			v72.x = v27.x; v72.y = v27.y;
+			v72.z = v25.x;
+			v28 = v72 * m_ObjectScale;
+			v29 = timeStep;
+			v30 = v28.z;
+			v31.x = v28.x; v31.y = v28.y;
+			if (this.m_UpdateRate > 0f)
 			{
-				dbtimeStep = Time.timeScale / m_UpdateRate;
+				v29 = Time.timeScale / this.m_UpdateRate;
 			}
-			Vector3 windForceSource = GetWindForceSource();
-			for (int i = 0; i < m_Particles.Count; i++)
+			WindForceSource = GetWindForceSource();
+			v33 = 0;
+			v34 = 0;
+			v35.x = WindForceSource.x; v35.y = WindForceSource.y;
+			v36 = WindForceSource.z;
+			m_Particles = this.m_Particles;
+			while (v34 < m_Particles.Count)
 			{
-				Vector3 particleForce = force;
-				VerletParticle verletParticle = m_Particles[i];
+				m_AdditiveWindForce = (DynamicBoneWindForce)this.m_AdditiveWindForce;
+				v39 = v31;
+				v40 = v30;
 				if (m_AdditiveWindForce != null && m_AdditiveWindForce.m_windForceMultiplier > 0f)
 				{
-					float windAngleDiff = -1;
-					float windCurveValue = -1;
-					Vector3 windForce = m_AdditiveWindForce.GetWindForceForParticle(windForceSource, verletParticle, ref windAngleDiff, ref windCurveValue);
-					if (windForce.magnitude > Mathf.Epsilon)
+					v41 = this.m_Particles;
+					v83 = -1;
+					v75 = -1;
+					Item = v41[v33];
+					v72.x = v35.x; v72.y = v35.y;
+					v72.z = v36;
+					v76 = m_AdditiveWindForce.GetWindForceForParticle(v72, (VerletParticle)Item, ref v83, ref v75);
+					magnitude_1 = v76.magnitude;
+					if (magnitude_1 > Mathf.Epsilon)
 					{
-						particleForce += windForce * m_ObjectScale;
+						v45.x = v76.x; v45.y = v76.y;
+						v46 = v76.z;
+						v47 = this.m_ObjectScale;
+						v73.x = v45.x; v73.y = v45.y;
+						v73.z = v46;
+						v48 = v73 * v47;
+						v78.x = v31.x; v78.y = v31.y;
+						v78.z = v30;
+						v49.x = v48.x; v49.y = v48.y;
+						v48.x = v48.z;
+						v77.x = v49.x; v77.y = v49.y;
+						v77.z = v48.x;
+						v50 = v78 + v77;
+						v39.x = v50.x; v39.y = v50.y;
+						v40 = v50.z;
 					}
-					if (verletParticle.m_BoneTransform != null && !string.IsNullOrEmpty(m_watchParticleName) && !string.IsNullOrEmpty(verletParticle.m_BoneName) && verletParticle.m_BoneName.Contains(m_watchParticleName))
+					v51 = this.m_Particles;
+					v52 = v51[v33];
+					v53 = v52.m_BoneName;
+					if (v53 != null)
 					{
-						verletParticle.m_angleDiff = windAngleDiff;
-						verletParticle.m_appliedWindforce = particleForce;
-						verletParticle.m_curveValue = windCurveValue;
+						m_watchParticleName = this.m_watchParticleName;
+						if (!String.IsNullOrEmpty(m_watchParticleName))
+						{
+							v55 = this.m_Particles;
+							v56 = v55[v33];
+							v57 = v56.m_BoneName;
+							if (!String.IsNullOrEmpty(v57))
+							{
+								v58 = this.m_Particles;
+								v59 = v58[v33];
+								v60 = v59.m_BoneName;
+								if (v60.Contains(this.m_watchParticleName))
+								{
+									v61 = this.m_Particles;
+									v62 = v61[v33];
+									v62.m_angleDiff = v83;
+									v63 = this.m_Particles;
+									v64 = v63[v33];
+									v64.m_appliedWindforce.x = v39.x; v64.m_appliedWindforce.y = v39.y;
+									v64.m_appliedWindforce.z = v40;
+									v65 = this.m_Particles;
+									v66 = v65[v33];
+									v66.m_curveValue = v75;
+								}
+							}
+						}
 					}
 				}
-				verletParticle.UpdateVerlet(m_ObjectMove, particleForce, timeStep, lastTimeStep, dbtimeStep);
+				v67 = this.m_Particles;
+				v68 = v67[v33];
+				v69.x = this.m_ObjectMove.x; v69.y = this.m_ObjectMove.y;
+				v74.z = this.m_ObjectMove.z;
+				v79.x = v39.x; v79.y = v39.y;
+				v79.z = v40;
+				v74.x = v69.x; v74.y = v69.y;
+				v68.UpdateVerlet(v74, v79, timeStep, lastTimeStep, v29);
+				m_Particles = this.m_Particles;
+				v34 = ++v33;
 			}
 		}
 
-		//OK
+		//2026.4.04 PM 8:52 Fin.
 		private void UpdateFreezeTransformNormal()
 		{
 			m_FreezeTransformAxis = Vector3.zero;
@@ -943,7 +1153,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//OK
+		//2026.4.04 PM 8:54 Fin.
 		public void SetWeight(float w)
 		{
 			if (m_Weight != w)
@@ -960,7 +1170,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//OK
+		//2026.4.04 PM 8:54 Fin.
 		public float GetWeight()
 		{
 			return m_Weight;
