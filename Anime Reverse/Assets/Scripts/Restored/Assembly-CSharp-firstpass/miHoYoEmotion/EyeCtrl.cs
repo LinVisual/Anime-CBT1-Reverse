@@ -35,8 +35,7 @@ namespace miHoYoEmotion
 		private Vector3 rightEuler;
 
 		private Transform target;
-	
-		//OK
+
 		public Transform LeftEyeLookAtBone 
 		{ 
 			get 
@@ -52,7 +51,6 @@ namespace miHoYoEmotion
 			} 
 		}
 
-		//OK
 		public Transform RightEyeLookAtBone 
 		{
 			get
@@ -67,8 +65,7 @@ namespace miHoYoEmotion
 				}
 			} 
 		}
-	
-		//OK
+
 		protected override void Start()
 		{
 			UpdateManger();
@@ -77,33 +74,29 @@ namespace miHoYoEmotion
 				leftEuler = _leftEyeLookAtBone.localEulerAngles;
 				rightEuler = _rightEyeLookAtBone.localEulerAngles;
 			}
-			_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), 1);
-			_emoAnim.RegisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), 1);
+			_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), EmoTrack.TRACK_BLINK);
+			_emoAnim.RegisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), EmoTrack.TRACK_BLINK);
 		}
 
-		//OK
 		protected override void OnEnable()
 		{
 			UpdateManger();
 		}
 
-		//OK
 		private void OnDestroy()
 		{
 			if (_emoAnim != null)
 			{
-				_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), 1);
+				_emoAnim.UnregisterFinishHandler(new EmoTrack.EmoVoidHandler(BlinkFinish), EmoTrack.TRACK_BLINK);
 			}
 		}
 
-		//OK
 		private void LateUpdate()
 		{
 			UpdateBlink();
 			UpdateLookTarget();
 		}
 
-		//OK
 		private void UpdateBlink()
 		{
 			if (autoBlinkingEnabled && !blinking)
@@ -123,7 +116,6 @@ namespace miHoYoEmotion
 			}
 		}
 
-		//OK
 		public void ToggleBlink(bool toggle)
 		{
 			if (_emoAnim != null)
@@ -132,16 +124,15 @@ namespace miHoYoEmotion
 			}
 		}
 
-		//OK
 		private void Blink()
 		{
 			if (_emoAnim != null)
 			{
-				_emoAnim.ClearShapeOnly(1);
-				BaseShape CurShape = _emoAnim.GetCurShape(0);
+				_emoAnim.ClearShapeOnly(EmoTrack.TRACK_BLINK);
+				BaseShape CurShape = _emoAnim.GetCurShape(EmoTrack.TRACK_EMOTION);
 				if (CurShape != null)
 				{
-					_emoAnim.EnableShape(CurShape, 0f, 1);
+					_emoAnim.EnableShape(CurShape, 0f, EmoTrack.TRACK_BLINK);
 					blinking = true;
 					blinkTimer = Random.Range(minimumBlinkGap, maximumBlinkGap);
 					SetState(EmoStateManager.EmoState.BLINKING);
@@ -149,7 +140,6 @@ namespace miHoYoEmotion
 			}
 		}
 
-		//OK
 		private void BlinkFinish()
 		{
 			blinking = false;
@@ -157,7 +147,6 @@ namespace miHoYoEmotion
 			ClearState(EmoStateManager.EmoState.BLINKING);
 		}
 
-		//OK
 		private void UpdateLookTarget()
 		{
 			target = viewTarget;
@@ -171,10 +160,13 @@ namespace miHoYoEmotion
 
 		private void UpdateEyeTarget(Transform target, Transform eyeBone, Vector3 originEuler, out Vector3 deltaEulerRot) 
 		{
-			deltaEulerRot = default;
-		} // 0x00000001814EA9D0-0x00000001814EACA0
+			Vector3 euler = Quaternion.FromToRotation(transform.forward, (target.position - eyeBone.position).normalized).eulerAngles;
+			CheckMinAngle(ref euler);
+			euler.y = Mathf.Clamp(euler.y, eyeRotationRangeX.x, eyeRotationRangeX.y);
+			euler.x = Mathf.Clamp(euler.x, eyeRotationRangeY.x, eyeRotationRangeY.y);
+			deltaEulerRot = euler;
+		}
 
-		//OK
 		private void ApplyEyeTarget(Transform leftEyeBone, Transform rightEyeBone, Vector3 leftOriginEuler, Vector3 rightOriginEuler, Vector3 leftDeltaRot, Vector3 rightDeltaRot)
 		{
 			if (rightDeltaRot.y * leftDeltaRot.y < 0f)
@@ -186,7 +178,6 @@ namespace miHoYoEmotion
 			rightEyeBone.localEulerAngles = new Vector3(rightDeltaRot.y + rightOriginEuler.x, rightOriginEuler.y, rightOriginEuler.z + rightDeltaRot.x);
 		}
 
-		//OK
 		private void CheckMinAngle(ref Vector3 euler)
 		{
 			float y = euler.y % 360f;

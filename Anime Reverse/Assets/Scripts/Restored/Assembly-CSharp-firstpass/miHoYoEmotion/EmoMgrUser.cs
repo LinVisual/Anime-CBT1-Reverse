@@ -50,7 +50,7 @@ namespace miHoYoEmotion
 
 		public void UpdateManger()
 		{
-			ElementManager elementManager;
+			ElementManager elementManager = null;
 			if (_type == ElementManager.Type.NONE)
 			{
 				_emoAnim = null;
