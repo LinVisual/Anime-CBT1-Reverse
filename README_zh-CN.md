@@ -27,7 +27,7 @@
 - 报告问题或建议
 - 提交代码改进
 - 添加新的代码示例
-- 获取文件：解密后的二进制文件现已发布于项目的[Release](https://github.com/LinVisual/AnimeReverse/releases/)页面，你可以直接从该处下载，并使用标准的、未经修改的Il2Cpp工具(例如, [Il2cppDumper](https://github.com/Perfare/Il2CppDumper), [Il2CppInspector](https://github.com/djkaty/Il2CppInspector))
+- 获取文件：解密后的二进制文件现已发布于项目的[Release](https://github.com/LinVisual/Anime-CBT1-Reverse/releases/)页面，你可以直接从该处下载，并使用标准的、未经修改的Il2Cpp工具(例如, [Il2cppDumper](https://github.com/Perfare/Il2CppDumper), [Il2CppInspector](https://github.com/djkaty/Il2CppInspector))
 
 ## 免责声明
 
