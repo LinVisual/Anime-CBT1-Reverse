@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace miHoYoEmotion
 {
-	// [RequireComponent] // 0x0000000181821B10-0x0000000181821B60
+	[RequireComponent(typeof(EyeKey))]
 	public class ClipShapeManager : ElementManager // TypeDefIndex: 6585
 	{
 		// Fields

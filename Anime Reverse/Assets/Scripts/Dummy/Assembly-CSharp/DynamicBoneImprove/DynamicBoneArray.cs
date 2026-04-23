@@ -203,7 +203,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//OK
+		//2026.4.18 2:50 PM Fin.
 		private void Start()
 		{
 			m_UpdateRate = Mathf.Clamp(m_UpdateRate, 0f, 30f);
@@ -284,15 +284,15 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//OK
-		[ContextMenu("ToggleMultiThread")]
+        //2026.4.18 2:50 PM Fin.
+        [ContextMenu("ToggleMultiThread")]
 		private void ToggleMultiThread()
 		{
 			bMultiThread = !bMultiThread;
 		}
 
-		//OK
-		[ContextMenu("ToggleResetBoneInUpdate")]
+        //2026.4.18 2:50 PM Fin.
+        [ContextMenu("ToggleResetBoneInUpdate")]
 		private void ToggleResetBoneInUpdate()
 		{
 			bResetBoneInUpdate = !bResetBoneInUpdate;
@@ -416,7 +416,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//2026.3.26 AM 9:07 Fin.
+		//2026.3.26 9:07 AM Fin.
 		[ContextMenu("InitWindforce")]
 		private void InitWindforceBones()
 		{
@@ -523,7 +523,7 @@ namespace DynamicBoneImprove
 			return UpdateBoneLength(ref verletParticle, parentBoneLength, rootIndex);
 		}
 
-		//2026.3.26 AM 9:31 Fin.
+		//2026.3.26 9:31 AM Fin.
 		private void AppendAdditionalEndParticle(int parentIndex, float parentBoneLength, int rootIndex)
 		{
 			AddNewParticle(parentIndex, parentBoneLength, rootIndex, null);
@@ -542,7 +542,7 @@ namespace DynamicBoneImprove
 			return boneLength;
 		}
 
-		//2026.3.26 AM 9:29 Fin.
+		//2026.3.26 9:29 AM Fin.
 		private void RecursivelyAppendParticles(Transform b, int parentIndex, float parentBoneLength, int rootIndex)
 		{
 			if (b  == null)
@@ -634,7 +634,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//2026.4.04 PM 9.03 Fin.
+		//2026.4.04 9.03 PM Fin.
 		private void UpdateWindForce()
 		{
 			if (m_AdditiveWindForce != null && m_AdditiveWindForce.OnUpdate())
@@ -721,7 +721,7 @@ namespace DynamicBoneImprove
 			m_ObjectPrevPosition = transform.position;
 		}
 
-		//2026.4.04 PM 8:26 Fin.
+		//2026.4.04 8:26 PM Fin.
 		private int CalDbUpdateCount(float dbTimeStep, float frameDeltaTime)
 		{
 			float delta = frameDeltaTime + m_lastFrameRemainTime;
@@ -1038,7 +1038,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//2026.4.04 PM 8:52 Fin.
+		//2026.4.04 8:52 PM Fin.
 		private void UpdateFreezeTransformNormal()
 		{
 			m_FreezeTransformAxis = Vector3.zero;
@@ -1153,7 +1153,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//2026.4.04 PM 8:54 Fin.
+		//2026.4.04 8:54 PM Fin.
 		public void SetWeight(float w)
 		{
 			if (m_Weight != w)
@@ -1170,7 +1170,7 @@ namespace DynamicBoneImprove
 			}
 		}
 
-		//2026.4.04 PM 8:54 Fin.
+		//2026.4.04 8:54 PM Fin.
 		public float GetWeight()
 		{
 			return m_Weight;

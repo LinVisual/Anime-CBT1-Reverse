@@ -357,7 +357,22 @@ namespace VerletEngine
 			}
 		}
 
-		public void UpdateCollision(List<DynamicBoneColliderBaseMMD> colliders, float objectScale, ref VerletParticle parent) {} // 0x000000018217BE90-0x000000018217BFC0
+        //2026.4.18 3:00 PM Fin.
+        public void UpdateCollision(List<DynamicBoneColliderBaseMMD> colliders, float objectScale, ref VerletParticle parent)
+		{
+			for (int i = 0; i < colliders.Count; i++)
+			{
+				DynamicBoneColliderBaseMMD dynamicBoneCollider = colliders[i];
+				if (dynamicBoneCollider != null)
+				{
+					if (dynamicBoneCollider.enabled)
+					{
+						dynamicBoneCollider.CollideParticle(this, 0);
+						dynamicBoneCollider.CollideParticle(ref m_Position, 0);
+					}
+				}
+			}
+		}
 
 		public void UpdateCollisionRayCast(LayerMask colliderMask, float objectScale) {} // 0x000000018217BBF0-0x000000018217BE90
 
